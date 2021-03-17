@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+  <meta charSet="utf-8" />
+  <title>Demo</title>
+  <script>
+    window.addEventListener('error', function(e){
+      // prevent React's listener from firing
+      e.stopImmediatePropagation();
+      // prevent the browser's console error message
+      e.preventDefault();
+    }, { passive: true });
+</script>
+</head>
+<body>
+</body>
+</html>

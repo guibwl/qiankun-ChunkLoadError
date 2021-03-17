@@ -1,0 +1,55 @@
+{
+  "name": "demo",
+  "private": true,
+  "scripts": {
+    "install:all": "npm-run-all --serial install:front*",
+    "install:front0": "yarn",
+    "install:front1": "cd packages/front1 && yarn",
+    "install:front2": "cd packages/front2 && yarn",
+    "start:noCache": "cross-env BABEL_CACHE=none TERSER_CACHE=none WEBPACK_FS_CACHE=none npm-run-all --parallel start:front*",
+    "start:all": "npm-run-all --parallel start:front*",
+    "start:front0": "yarn start",
+    "start:front1": "cd packages/front1 && yarn start",
+    "start:front2": "cd packages/front2 && yarn start",
+    "start": "cross-env BUILD_ENV=development umi dev",
+    "build:pre": "cross-env BUILD_ENV=pre umi build",
+    "build": "cross-env BUILD_ENV=production umi build",
+    "postinstall": "umi generate tmp",
+    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "dependencies": {
+    "@ant-design/pro-layout": "^5.0.12",
+    "@umijs/plugin-qiankun": "^2.4.0",
+    "@umijs/preset-react": "1.x",
+    "@umijs/test": "^3.2.7",
+    "axios": "^0.21.1",
+    "lint-staged": "^10.0.7",
+    "lodash": "^4.17.20",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "qiankun": "^2.4.0",
+    "qs": "^6.9.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "umi": "^3.4.2",
+    "yorkie": "^2.0.0"
+  },
+  "devDependencies": {
+    "compression-webpack-plugin": "^6.1.1",
+    "cross-env": "^7.0.3",
+    "webpack": "^4.46.0"
+  }
+}

@@ -1,3 +1,4 @@
+import './public-path';
 import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
@@ -5,8 +6,7 @@ import './registerServiceWorker';
 
 // 这里使用函数创建 App，因为 qiankun 切换到其他子应用时我们需要 unmount 当前 App，
 // unmount 后当前 App Instance 便无法 mount，需要重新创建 Instance。
-const createVueApp = () => createApp(App)
-  .use(router);
+const createVueApp = () => createApp(App).use(router);
 
 const appId = '#app';
 
@@ -25,9 +25,11 @@ export async function bootstrap() {
  * 注意：该方法仅在微前端环境下会被 qiankun 调用
  * 应用每次进入都会调用 mount 方法，通常我们在这里触发应用的渲染方法
  */
-export async function mount(this: any) {
+export async function mount(this: any, props: any = {}) {
+  const { container } = props;
+
   vueApp = createVueApp();
-  vueApp.mount(appId);
+  vueApp.mount(container ? container.querySelector(appId) : appId);
 }
 
 /**

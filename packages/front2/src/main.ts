@@ -1,16 +1,16 @@
-import './public-path';
+// import './public-path';
 import { createApp } from 'vue';
-import router from './router';
+import createRouter from './router';
 import App from './App.vue';
 import './registerServiceWorker';
+
+let vueApp: any;
+let router: any;
+const appId = '#app';
 
 // 这里使用函数创建 App，因为 qiankun 切换到其他子应用时我们需要 unmount 当前 App，
 // unmount 后当前 App Instance 便无法 mount，需要重新创建 Instance。
 const createVueApp = () => createApp(App).use(router);
-
-const appId = '#app';
-
-let vueApp: any;
 
 /**
  * 注意：该方法仅在微前端环境下会被 qiankun 调用
@@ -27,6 +27,8 @@ export async function bootstrap() {
  */
 export async function mount(this: any, props: any = {}) {
   const { container } = props;
+
+  router = createRouter();
   vueApp = createVueApp();
   vueApp.mount(container ? container.querySelector(appId) : appId);
 }
@@ -37,4 +39,8 @@ export async function mount(this: any, props: any = {}) {
  */
 export async function unmount() {
   vueApp.unmount(appId);
+  // eslint-disable-next-line
+  vueApp._container.innerHTML = '';
+  vueApp = null;
+  router = null;
 }

@@ -19,9 +19,9 @@ export const routes: Array<RouteRecordRaw> = [
   },
 ];
 
-const router = createRouter({
-  history: createWebHistory('/front1'),
-  routes,
-});
-
-export default { ...router };
+export default function createRouterHandler() {
+  return createRouter({
+    history: createWebHistory('/front1'),
+    routes,
+  });
+}

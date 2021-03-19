@@ -2,8 +2,7 @@
   "name": "demo",
   "private": true,
   "scripts": {
-    "install:all": "npm-run-all --serial install:front*",
-    "install:front0": "yarn",
+    "install:all": "yarn && npm-run-all --serial install:front*",
     "install:front1": "cd packages/front1 && yarn",
     "install:front2": "cd packages/front2 && yarn",
     "start:noCache": "cross-env BABEL_CACHE=none TERSER_CACHE=none WEBPACK_FS_CACHE=none npm-run-all --parallel start:front*",
